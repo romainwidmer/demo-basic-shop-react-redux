@@ -5,6 +5,12 @@ const initialState = {
 
 const cartReducer = (state = initialState, action) => {
     switch(action.type) {
+        case 'INIT_CART':
+            return {
+                ...state,
+                cartItems: action.payload.items,
+                total: action.payload.total
+            }
         case 'ADD_TO_CART':
             let existing_item = state.cartItems.find(item => item.id === action.payload.id)
 

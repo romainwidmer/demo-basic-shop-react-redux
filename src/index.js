@@ -13,6 +13,9 @@ import Navigation from './UI/components/nav'
 import HomePage from './UI/pages/home'
 import CartPage from './UI/pages/cart'
 
+// import localStorage stuff
+import { saveCart } from './localStorage'
+
 // import libs style
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -23,6 +26,13 @@ import './style.scss'
 // create the application store
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
+
+store.subscribe(() => {
+    console.log(store.getState())
+    saveCart({
+        cart: store.getState().cartReducer
+    })
+})
 
 const AppRouter = () => {
     return(
