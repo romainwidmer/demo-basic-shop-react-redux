@@ -1,0 +1,30 @@
+/* Nav */
+nav {
+    background: bisque;
+    > div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        ul {
+            padding: 0;
+            list-style: none;
+            margin: 0;
+            display: flex;
+            li {
+                margin: 0 15px;
+                padding: 15px;
+            }
+        }
+    }
+}
+
+
+/* Home page */
+.product-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .card {
+        margin: 15px;
+    }
+}
