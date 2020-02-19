@@ -1,3 +1,15 @@
+export const initCartFromLocalStorage = (items) => {
+    return(dispatch) => {
+        let total = 0
+        
+        items.map(item => {
+            total += (item.quantity * item.price)
+        })
+
+        dispatch({ type: 'INIT_CART', payload: { items, total } })
+
+    }
+}
 /**
  * @param {Integer} id 
  */

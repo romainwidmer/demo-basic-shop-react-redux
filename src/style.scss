@@ -1,3 +1,17 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
 /* Nav */
 nav {
     background: bisque;
@@ -6,9 +20,6 @@ nav {
         align-items: center;
         justify-content: space-between;
         ul {
-            padding: 0;
-            list-style: none;
-            margin: 0;
             display: flex;
             li {
                 margin: 0 15px;
@@ -26,5 +37,18 @@ nav {
     justify-content: space-between;
     .card {
         margin: 15px;
+    }
+}
+
+
+/* Cart page */
+.cart {
+    .item {
+        margin-bottom: 25px;
+        border-bottom: solid 1px black;
+        padding: 25px 0;
+        &:last-child {
+            border-bottom: double;
+        }
     }
 }
