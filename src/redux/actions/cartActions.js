@@ -1,7 +1,7 @@
 export const initCartFromLocalStorage = (items) => {
-    return(dispatch) => {
+    return(dispatch, getState) => {
         let total = 0
-        
+
         items.map(item => {
             total += (item.quantity * item.price)
         })
@@ -10,6 +10,7 @@ export const initCartFromLocalStorage = (items) => {
 
     }
 }
+
 /**
  * @param {Integer} id 
  */
@@ -18,8 +19,8 @@ export const addToCart = (id) => {
         const { items } = getState().productReducer
 
         // get the item from the product reducer state
-        const addedItem = items.find(item => item.id === id)
-
+        let addedItem = items.find(item => item.id === id)
+        addedItem.inCart = true
         dispatch({ type: 'ADD_TO_CART', payload: addedItem })
     }
 }
@@ -86,6 +87,13 @@ export const removeItem = (id) => {
         
         // calculate the total
         const newTotal = total - (itemToRemove.quantity * itemToRemove.price)
+
+        // remove the tag "inCart" on the product
+        const { items } = getState().productReducer
+
+        // get the item from the product reducer state
+        let addedItem = items.find(item => item.id === itemToRemove.id)
+        addedItem.inCart = false
 
         return dispatch({ type: 'REMOVE', payload: { cartItems: newCartItems, total: newTotal } })
     }

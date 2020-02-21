@@ -1,13 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Card, Button } from 'react-bootstrap'
 
 // import personal stuff
-import { addToCart } from '../../redux/actions/cartActions'
+import { addToCart, initCartFromLocalStorage } from '../../redux/actions/cartActions'
+
+// import localStorage stuff
+import { loadCart } from '../../localStorage'
 
 export default function HomePage() {
     const productReducer = useSelector(state => state.productReducer)
+    const { cartItems } = useSelector(state => state.cartReducer)
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        if(cartItems.length === 0) {
+            if(loadCart() !== undefined) {
+                dispatch(initCartFromLocalStorage(loadCart().cart.cartItems))
+            }
+        }
+    })
 
     const addProductToCart = (id) => {
         dispatch(addToCart(id))
@@ -27,13 +39,12 @@ export default function HomePage() {
                             <Card.Body>
                                 <Card.Title>{item.title} <span>{item.price}.-</span></Card.Title>
                                 <Card.Text>{item.description}</Card.Text>
-                                <Button variant="primary" onClick={() => addProductToCart(item.id)}>Add to cart</Button>
+                                {!item.inCart && <Button variant="primary" onClick={() => addProductToCart(item.id)}>Add to cart</Button>}
                             </Card.Body>
                         </Card>
                     )
                 })}
             </div>
-
         </div>
     )
 }
